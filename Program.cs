@@ -8,6 +8,8 @@ List<TeamMember> teamMembers = new List<TeamMember>();
 
 int bankDifficultyLevel = 100;
 
+
+
 //find the total skillLevel of all of the team members , use a method on the list teamMembers to find the total
 
 
@@ -27,14 +29,20 @@ void Main()
     int totalSkill = teamMembers.Aggregate( 0, (int accumulator , TeamMember teamMember) => 
         accumulator += teamMember.SkillLevel
     );
+
+    Random random = new Random();
+    int luckValue = random.Next(-10, 11);
+    int bankDifficultyLevel = 100 + luckValue; 
+    Console.WriteLine(@$"Team members skill level: {totalSkill} 
+                        Bank's difficulty level {bankDifficultyLevel}");
     
     // compare TotalSkill to bankDifficulty and display message accordingly 
-    DisplayMessageForBankDifficultyAndTotalSkill(totalSkill);
+    DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
   
   
 }
 
-void DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill)
+void DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill, int bankDifficultyLevel)
 {
     if( totalSkill >= bankDifficultyLevel)
     {
