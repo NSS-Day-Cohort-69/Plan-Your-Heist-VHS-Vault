@@ -6,6 +6,11 @@
 
 List<TeamMember> teamMembers = new List<TeamMember>();
 
+int bankDifficultyLevel = 100;
+
+//find the total skillLevel of all of the team members , use a method on the list teamMembers to find the total
+
+
 void Main()
 {
     Console.WriteLine("Plan your heist!");
@@ -19,15 +24,31 @@ void Main()
         teamMembers.Add(teamMember);
     }
 
-    Console.WriteLine(teamMembers.Count);
-    foreach (TeamMember teamMember in teamMembers)
-    {
-        Console.WriteLine($"{teamMember.Name} {teamMember.SkillLevel} {teamMember.CourageFactor}");
-    }
-    //display message containing the number of members of the team
-    //loop through team members
-    //make function that displays team member's information
+    int totalSkill = teamMembers.Aggregate( 0, (int accumulator , TeamMember teamMember) => 
+        accumulator += teamMember.SkillLevel
+    );
+    
+    // compare TotalSkill to bankDifficulty and display message accordingly 
+    DisplayMessageForBankDifficultyAndTotalSkill(totalSkill);
+  
+  
 }
+
+void DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill)
+{
+    if( totalSkill >= bankDifficultyLevel)
+    {
+        Console.BackgroundColor = ConsoleColor.Green;
+        Console.WriteLine("you've done it$");
+        
+    }
+    else 
+    {
+        Console.BackgroundColor = ConsoleColor.Red;
+        Console.WriteLine("FAILURE");
+        
+    }
+};
 
 TeamMember TeamMemberForm()
 {
