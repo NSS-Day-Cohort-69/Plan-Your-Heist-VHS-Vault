@@ -15,29 +15,12 @@ int bankDifficultyLevel = 100;
 
 void Main()
 {
-    Console.WriteLine("Plan your heist!");
-    for (int i = 0; i < 100; i++)
-    {
-        TeamMember teamMember = TeamMemberForm();
-        if (teamMember == null)
-        {
-            break;
-        }
-        teamMembers.Add(teamMember);
-    }
-
-    int totalSkill = teamMembers.Aggregate( 0, (int accumulator , TeamMember teamMember) => 
-        accumulator += teamMember.SkillLevel
-    );
-
-    Random random = new Random();
-    int luckValue = random.Next(-10, 11);
-    int bankDifficultyLevel = 100 + luckValue; 
-    Console.WriteLine(@$"Team members skill level: {totalSkill} 
-                        Bank's difficulty level {bankDifficultyLevel}");
     
-    // compare TotalSkill to bankDifficulty and display message accordingly 
-    DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
+    for(int i = 0; i < 100; i++) //Arbitrarily high number so we don't have an infinite loop
+    {
+        DoHeist();
+    }
+    
   
   
 }
@@ -82,6 +65,37 @@ TeamMember TeamMemberForm()
     };
 
     return teamMember;
+}
+
+void DoHeist()
+{
+    Console.WriteLine("Plan your heist!");
+    for (int i = 0; i < 100; i++)
+    {
+        TeamMember teamMember = TeamMemberForm();
+        if (teamMember == null)
+        {
+            break;
+        }
+        teamMembers.Add(teamMember);
+    }
+
+    int totalSkill = teamMembers.Aggregate( 0, (int accumulator , TeamMember teamMember) => 
+        accumulator += teamMember.SkillLevel
+    );
+    Console.WriteLine("Enter the number of trial runs");
+    int trialRuns = int.Parse(Console.ReadLine());
+
+    Random random = new Random();
+    int luckValue = random.Next(-10, 11);
+    int bankDifficultyLevel = 100 + luckValue; 
+    Console.WriteLine(@$"Team members skill level: {totalSkill} 
+    Bank's difficulty level {bankDifficultyLevel}");
+
+
+    
+    // compare TotalSkill to bankDifficulty and display message accordingly 
+    DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
 }
 
 Main();
