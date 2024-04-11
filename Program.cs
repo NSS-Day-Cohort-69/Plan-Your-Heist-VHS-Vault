@@ -16,26 +16,46 @@ void Main()
     Console.WriteLine("Plan your heist!");
     MakeTeam();
 
+    Console.WriteLine("Please enter the difficult level of the bank :");
+    bankDifficultyLevel = int.Parse(Console.ReadLine());
+
     Console.WriteLine("Enter the number of trial runs");
     int trialRuns = int.Parse(Console.ReadLine());
 
+    int numberOfFailedRuns = 0;
+    int numberOfSuccessfulRuns = 0;
+
     for (int i = 0; i < trialRuns; i++)
     {
-        DoHeist();
+        if (DoHeist())
+        {
+            numberOfSuccessfulRuns++;
+        }
+        else
+        {
+            numberOfFailedRuns++;
+        }
     }
+
+    Console.WriteLine(@$"the number of successful attempts = {numberOfSuccessfulRuns},
+    the number of failed attempts = {numberOfFailedRuns}");
+
+
 }
 
-void DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill, int bankDifficultyLevel)
+bool DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill, int bankDifficultyLevel)
 {
     if (totalSkill >= bankDifficultyLevel)
     {
         Console.BackgroundColor = ConsoleColor.Green;
         Console.WriteLine("you've done it$");
+        return true;
     }
     else
     {
         Console.BackgroundColor = ConsoleColor.Red;
         Console.WriteLine("FAILURE");
+        return false;
     }
 }
 ;
@@ -79,7 +99,7 @@ void MakeTeam()
     }
 }
 
-void DoHeist()
+bool DoHeist()
 {
     int totalSkill = teamMembers.Aggregate(
         0,
@@ -95,7 +115,7 @@ void DoHeist()
     );
 
     // compare TotalSkill to bankDifficulty and display message accordingly
-    DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
+    return DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
 }
 
 Main();
