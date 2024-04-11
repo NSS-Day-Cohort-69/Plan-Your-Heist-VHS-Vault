@@ -37,10 +37,10 @@ void Main()
         }
     }
 
-    Console.WriteLine(@$"the number of successful attempts = {numberOfSuccessfulRuns},
-    the number of failed attempts = {numberOfFailedRuns}");
-
-
+    Console.WriteLine(
+        @$"the number of successful attempts = {numberOfSuccessfulRuns},
+    the number of failed attempts = {numberOfFailedRuns}"
+    );
 }
 
 bool DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill, int bankDifficultyLevel)
@@ -108,14 +108,14 @@ bool DoHeist()
 
     Random random = new Random();
     int luckValue = random.Next(-10, 11);
-    int bankDifficultyLevel = 100 + luckValue;
+    int randomizedBankDifficulty = bankDifficultyLevel + luckValue;
     Console.WriteLine(
         @$"Team members skill level: {totalSkill} 
-    Bank's difficulty level {bankDifficultyLevel}"
+    Bank's difficulty level {randomizedBankDifficulty}"
     );
 
     // compare TotalSkill to bankDifficulty and display message accordingly
-    return DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
+    return DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, randomizedBankDifficulty);
 }
 
 Main();
