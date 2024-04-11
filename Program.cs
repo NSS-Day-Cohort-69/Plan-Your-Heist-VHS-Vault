@@ -2,44 +2,43 @@
 //Create a main function
 //Print message Plan your heist
 //Create a team member for which will prompt the user to create a team member and save the created team members info
-//Print the team members information
+//Print the team members informatio
 
 List<TeamMember> teamMembers = new List<TeamMember>();
 
 int bankDifficultyLevel = 100;
-
-
 
 //find the total skillLevel of all of the team members , use a method on the list teamMembers to find the total
 
 
 void Main()
 {
-    
-    for(int i = 0; i < 100; i++) //Arbitrarily high number so we don't have an infinite loop
+    Console.WriteLine("Plan your heist!");
+    MakeTeam();
+
+    Console.WriteLine("Enter the number of trial runs");
+    int trialRuns = int.Parse(Console.ReadLine());
+
+    for (int i = 0; i < trialRuns; i++)
     {
         DoHeist();
     }
-    
-  
-  
 }
 
 void DisplayMessageForBankDifficultyAndTotalSkill(int totalSkill, int bankDifficultyLevel)
 {
-    if( totalSkill >= bankDifficultyLevel)
+    if (totalSkill >= bankDifficultyLevel)
     {
         Console.BackgroundColor = ConsoleColor.Green;
         Console.WriteLine("you've done it$");
-        
     }
-    else 
+    else
     {
         Console.BackgroundColor = ConsoleColor.Red;
         Console.WriteLine("FAILURE");
-        
     }
-};
+}
+;
 
 TeamMember TeamMemberForm()
 {
@@ -67,9 +66,8 @@ TeamMember TeamMemberForm()
     return teamMember;
 }
 
-void DoHeist()
+void MakeTeam()
 {
-    Console.WriteLine("Plan your heist!");
     for (int i = 0; i < 100; i++)
     {
         TeamMember teamMember = TeamMemberForm();
@@ -79,22 +77,24 @@ void DoHeist()
         }
         teamMembers.Add(teamMember);
     }
+}
 
-    int totalSkill = teamMembers.Aggregate( 0, (int accumulator , TeamMember teamMember) => 
-        accumulator += teamMember.SkillLevel
+void DoHeist()
+{
+    int totalSkill = teamMembers.Aggregate(
+        0,
+        (int accumulator, TeamMember teamMember) => accumulator += teamMember.SkillLevel
     );
-    Console.WriteLine("Enter the number of trial runs");
-    int trialRuns = int.Parse(Console.ReadLine());
 
     Random random = new Random();
     int luckValue = random.Next(-10, 11);
-    int bankDifficultyLevel = 100 + luckValue; 
-    Console.WriteLine(@$"Team members skill level: {totalSkill} 
-    Bank's difficulty level {bankDifficultyLevel}");
+    int bankDifficultyLevel = 100 + luckValue;
+    Console.WriteLine(
+        @$"Team members skill level: {totalSkill} 
+    Bank's difficulty level {bankDifficultyLevel}"
+    );
 
-
-    
-    // compare TotalSkill to bankDifficulty and display message accordingly 
+    // compare TotalSkill to bankDifficulty and display message accordingly
     DisplayMessageForBankDifficultyAndTotalSkill(totalSkill, bankDifficultyLevel);
 }
 
